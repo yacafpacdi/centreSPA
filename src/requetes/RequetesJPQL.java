@@ -29,25 +29,25 @@ public class RequetesJPQL {
 
         String race = "chien";
         System.out.println("2) tous les animaux de race = " + race);
-        req = "select a from Animal a where a.race = :paramRace";
+        req = "select a from Animal a where a.race = :raceParam";
         qr = em.createQuery(req);
-        qr.setParameter("paramRace", race);
+        qr.setParameter("raceParam", race);
         List<Animal> la = qr.getResultList();
         oa.afficher(la);
 
         System.out.println("3) tous les soigneurs qui soignent un " + race);
-        req = "select distinct a.soigneurs from Animal a where a.race= :paramRace"; // distinct pour éliminer les doublons
+        req = "select distinct a.soigneurs from Animal a where a.race= :raceParam"; // distinct pour éliminer les doublons
         qr = em.createQuery(req);
-        qr.setParameter("paramRace", race);
+        qr.setParameter("raceParam", race);
         ls = qr.getResultList();
         os.afficher(ls);
         //System.out.println(">>>>> qr = " + qr + "\n");
 
         Integer age = 1;
         System.out.println("4) tous les animaux qui ont au moins  " + age + " ans");
-        req = "select a from Animal a where a.age >= :paramAge";
+        req = "select a from Animal a where a.age >= :ageParam";
         qr = em.createQuery(req);
-        qr.setParameter("paramAge", age);
+        qr.setParameter("ageParam", age);
         //pagination
 //        int debut = 2;
 //        int qteParPage =2;
@@ -61,34 +61,34 @@ public class RequetesJPQL {
         System.out.println("5) tous les animaux d'un soigneur id = "+id);
         System.out.println("5.1) avec un objet");
         Soigneur s01 = em.find(Soigneur.class, id);
-        req = "select s.animaux from Soigneur s where s= :paramSoigneur";
+        req = "select s.animaux from Soigneur s where s= :soigneurParam";
         qr = em.createQuery(req);
-        qr.setParameter("paramSoigneur", s01);
+        qr.setParameter("soigneurParam", s01);
         la = qr.getResultList();
         oa.afficher(la);
         
         System.out.println("5.2) avec l'id");
-        req = "select s.animaux from Soigneur s where s.id= :paramId";
+        req = "select s.animaux from Soigneur s where s.id= :idParam";
         qr = em.createQuery(req);
-        qr.setParameter("paramId", id);
+        qr.setParameter("idParam", id);
         la = qr.getResultList();
         oa.afficher(la);
         
         int qte=1;
         System.out.println("6) tous les soigneurs qui soignent au moins " + qte+ " animaux");
-        req = "select distinct s from Soigneur s where SIZE(s.animaux) >= :paramQte"; // distinct pour éliminer les doublons
+        req = "select distinct s from Soigneur s where SIZE(s.animaux) >= :qteParam"; // distinct pour éliminer les doublons
         qr = em.createQuery(req);
         System.out.println(">>>>> qr = " + qr + "\n");
-        qr.setParameter("paramQte", qte);
+        qr.setParameter("qteParam", qte);
         ls = qr.getResultList();
         os.afficher(ls);
         
         id = 3L;
         System.out.println("7) tous les soigneurs qui travaillent le centre id =  " + id);
-        req = "select a.soigneurs from Animal a where a.centre.id = :paramId"; // distinct pour éliminer les doublons
+        req = "select a.soigneurs from Animal a where a.centre.id = :idParam"; // distinct pour éliminer les doublons
         qr = em.createQuery(req);
         System.out.println(">>>>> qr = " + qr + "\n");
-        qr.setParameter("paramId", id);
+        qr.setParameter("idParam", id);
         ls = qr.getResultList();
         os.afficher(ls);
         

@@ -20,6 +20,8 @@ public class Centre implements Serializable {
 
     private String nom;
     private Integer capacite;
+    
+    //Associations
 
     @OneToMany(mappedBy = "centre")
     private Collection<Animal> animaux;
